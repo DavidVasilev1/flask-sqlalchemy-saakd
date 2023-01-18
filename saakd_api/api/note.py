@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api, Resource, reqparse
 from .. import db
-from ..model.todos import Todo
+from ..model.notes import Note
 
 note_bp = Blueprint("note", __name__)
 note_api = Api(note_bp)
