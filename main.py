@@ -1,7 +1,10 @@
 from saakd_api import app, db
 from saakd_api.api.todo import todo_bp
+from saakd_api.api.calculator import calculator_bp
 
 app.register_blueprint(todo_bp)
+
+app.register_blueprint(calculator_bp)
 
 
 @app.before_first_request
