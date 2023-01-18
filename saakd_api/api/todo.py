@@ -57,9 +57,9 @@ class TodoAPI(Resource):
                 return todo.to_dict()
             else:
                 return {"message": "todo not found"}, 404
-        except:
+        except Exception as e:
             db.session.rollback()
-            return {"message": "unknown server error"}, 500
+            return {"message": f"server error: {e}"}, 500
 
 
 class TodoListAPI(Resource):
