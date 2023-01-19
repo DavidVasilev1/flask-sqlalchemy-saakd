@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api, Resource, reqparse
 from .. import db
-from ..model.notes import Note
+from ..model.notes import Notes
 
 note_bp = Blueprint("note", __name__)
 note_api = Api(note_bp)
@@ -19,7 +19,7 @@ class NoteAPI(Resource):
         parser.add_argument("text", required=True, type=str)
         args = parser.parse_args()
 
-        note = Note(args["text"])
+        note = Notes(args["text"])
         try:
             db.session.add(note)
             db.session.commit()
@@ -34,7 +34,7 @@ class NoteAPI(Resource):
         args = parser.parse_args()
 
         try:
-            note = db.session.query(Note).get(args["id"])
+            note = db.session.query(Notes).get(args["id"])
             if note:
                 note.completed = True
                 db.session.commit()
@@ -50,7 +50,7 @@ class NoteAPI(Resource):
         args = parser.parse_args()
 
         try:
-            note = db.session.query(Note).get(args["id"])
+            note = db.session.query(Notes).get(args["id"])
             if note:
                 db.session.delete(note)
                 db.session.commit()
@@ -62,11 +62,11 @@ class NoteAPI(Resource):
             return {"message": f"server error: {e}"}, 500
 
 
-class TodoListAPI(Resource):
+class NoteListAPI(Resource):
     def get(self):
-        todos = db.session.query(Note).all()
-        return [todo.to_dict() for note in note]
+        notes = db.session.query(Notes).all()
+        return [note.to_dict() for note in notes]
 
 
-note_api.add_resource(noteAPI, "/note")
-note_api.add_resource(noteListAPI, "/noteList")
+note_api.add_resource(NoteAPI, "/note")
+note_api.add_resource(NoteListAPI, "/noteList")
