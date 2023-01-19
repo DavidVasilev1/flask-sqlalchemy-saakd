@@ -50,3 +50,6 @@ class Timer(db.Model):
     @expectedtime.setter
     def expectedtime(self, value):
         self._expectedtime = value
+
+    def to_dict(self):
+        return {"id": self.id, "task": self.task, "expectedtime": self.expectedtime}
