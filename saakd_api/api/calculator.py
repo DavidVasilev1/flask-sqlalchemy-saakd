@@ -40,6 +40,7 @@ class CalculatorAPI(Resource):
             calculator = db.session.query(Calculator).get(args["id"])
             if calculator:
                 calculator.expression = args["expression"]
+                calculator.output = args["output"]
                 db.session.commit()
             else:
                 return {"message": "calculator not found"}, 404

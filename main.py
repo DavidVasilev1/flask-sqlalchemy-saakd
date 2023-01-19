@@ -5,7 +5,7 @@ from saakd_api.api.timer import timer_bp
 
 app.register_blueprint(todo_bp)
 app.register_blueprint(timer_bp)
-app.register_blueprint(note_bp)
+# app.register_blueprint(note_bp)
 
 app.register_blueprint(calculator_bp)
 
