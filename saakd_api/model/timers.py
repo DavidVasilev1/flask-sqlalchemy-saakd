@@ -15,7 +15,7 @@ class Timer(db.Model):
     def __init__(self, task, expectedtime, started, timeStop):
         self._task = task
         self._expectedtime = expectedtime
-        self._started = False
+        self._started = started
         self._timeStop = timeStop
 
     def __repr__(self):
@@ -64,3 +64,17 @@ class Timer(db.Model):
 
     def to_dict(self):
         return {"id": self.id, "task": self.task, "expectedtime": self.expectedtime, "started": self.started, "timeStop": self.timeStop}
+
+def init_timers():
+    task1 = Timer("math", "58", "True", "367")
+    task2 = Timer("physics", "347", "True", "56")
+    task3 = Timer("history", "23", "True", "678")
+    task4 = Timer("csp", "56", "False", "23")
+    task5 = Timer("english", "89", "True", "45")
+    db.session.add(task1)
+    db.session.add(task2)
+    db.session.add(task3)
+    db.session.add(task4)
+    db.session.add(task5)
+
+    db.session.commit()
