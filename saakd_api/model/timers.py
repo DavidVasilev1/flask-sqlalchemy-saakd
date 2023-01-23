@@ -63,6 +63,7 @@ class Timer(db.Model):
     def to_dict(self):
         return {"id": self.id, "task": self.task, "expectedtime": self.expectedtime, "started": self.started, "timeStop": self.timeStop}
 
+
 def initTimers():
     task1 = Timer(task='math', expectedtime=58, started=1, timeStop=367)
     task2 = Timer(task='physics', expectedtime=347, started=1, timeStop=56)
