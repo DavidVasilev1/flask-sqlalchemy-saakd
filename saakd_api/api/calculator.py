@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_restful import Api, Resource, reqparse
 from .. import db
 from ..model.calculators import Calculator
@@ -8,7 +8,8 @@ calculator_api = Api(calculator_bp)
 
 
 class CalculatorAPI(Resource):
-    def get(self, id):
+    def get(self):
+        id = request.args.get("id")
         calculator = db.session.query(Calculator).get(id)
         if calculator:
             return calculator.to_dict()
