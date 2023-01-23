@@ -46,7 +46,7 @@ def random_bool():
 
 
 def todos_table_empty():
-    len(db.session.query(Todo).all()) == 0
+    return len(db.session.query(Todo).all()) == 0
 
 
 def init_todos():
