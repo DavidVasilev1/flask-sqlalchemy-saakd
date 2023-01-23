@@ -20,7 +20,6 @@ class TimerAPI(Resource):
         parser.add_argument("expectedtime", required=False, type=int)
         parser.add_argument("started", required=False, type=bool)
         parser.add_argument("timeStop", required=False, type=int)
-        
         args = parser.parse_args()
 
         timer = Timer(args["task"], args["expectedtime"], args["started"], args["timeStop"])
@@ -40,7 +39,7 @@ class TimerAPI(Resource):
         try:
             timer = db.session.query(Timer).get(args["id"])
             if timer:
-                timer.started = False
+                # timer.started = False
                 db.session.commit()
             else:
                 return {"message": "timer not found"}, 404

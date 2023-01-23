@@ -66,11 +66,11 @@ class Timer(db.Model):
         return {"id": self.id, "task": self.task, "expectedtime": self.expectedtime, "started": self.started, "timeStop": self.timeStop}
 
 def init_timers():
-    task1 = Timer("math", "58", "True", "367")
-    task2 = Timer("physics", "347", "True", "56")
-    task3 = Timer("history", "23", "True", "678")
-    task4 = Timer("csp", "56", "False", "23")
-    task5 = Timer("english", "89", "True", "45")
+    task1 = Timer(task="math", expectedtime="58", started="True", timeStop="367")
+    task2 = Timer(task="physics", expectedtime="347", started="True", timeStop="56")
+    task3 = Timer(task="history", expectedtime="23", started="True", timeStop="678")
+    task4 = Timer(task="csp", expectedtime="56", started="False", timeStop="23")
+    task5 = Timer(task="english", expectedtime="89", started="True", timeStop="45")
     db.session.add(task1)
     db.session.add(task2)
     db.session.add(task3)
