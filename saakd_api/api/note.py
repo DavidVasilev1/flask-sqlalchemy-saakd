@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_restful import Api, Resource, reqparse
 from .. import db
 from ..model.notes import Notes
@@ -8,7 +8,8 @@ note_api = Api(note_bp)
 
 
 class NoteAPI(Resource):
-    def get(self, id):
+    def get(self):
+        id = request.agrs.get("id")
         note = db.session.query(note).get(id)
         if note:
             return note.to_dict()
