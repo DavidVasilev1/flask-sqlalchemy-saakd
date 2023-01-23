@@ -48,7 +48,7 @@ def init_notes():
     note5 = Notes("work on ush", "ush")
     db.session.add(note)
     db.session.add(note2)
-    db.session.add(note2)
+    db.session.add(note3)
     db.session.add(note4)
     db.session.add(note5)
 
