@@ -12,7 +12,7 @@ class Timer(db.Model):
     _timeStop = Column(Integer, nullable=False)
 
     # initialization
-    def __init__(self, task, expectedtime, timeStop):
+    def __init__(self, task, expectedtime, started, timeStop):
         self._task = task
         self._expectedtime = expectedtime
         self._started = False
