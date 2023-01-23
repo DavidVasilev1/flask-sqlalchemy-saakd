@@ -32,12 +32,13 @@ class TodoAPI(Resource):
     def put(self):
         parser = reqparse.RequestParser()
         parser.add_argument("id", required=True, type=int)
+        parser.add_argument("completed", required=True, type=int)
         args = parser.parse_args()
 
         try:
             todo = db.session.query(Todo).get(args["id"])
             if todo:
-                todo.completed = True
+                todo.completed = args["completed"]
                 db.session.commit()
             else:
                 return {"message": "todo not found"}, 404
