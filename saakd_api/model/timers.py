@@ -63,4 +63,4 @@ class Timer(db.Model):
         self._timeStop = value
 
     def to_dict(self):
-        return {"id": self.id, "task": self.task, "expectedtime": self.expectedtime, "timeStop": self.timeStop}
+        return {"id": self.id, "task": self.task, "expectedtime": self.expectedtime, "started": self.started, "timeStop": self.timeStop}
