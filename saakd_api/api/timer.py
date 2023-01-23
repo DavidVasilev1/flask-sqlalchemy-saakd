@@ -18,12 +18,12 @@ class TimerAPI(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument("task", required=True, type=str)
         parser.add_argument("expectedtime", required=False, type=int)
+        parser.add_argument("started", required=False, type=int)
         parser.add_argument("timeStop", required=False, type=int)
-
         
         args = parser.parse_args()
 
-        timer = Timer(args["task"], args["expectedtime"], args["timeStop"])
+        timer = Timer(args["task"], args["expectedtime"], args["started"], args["timeStop"])
         try:
             db.session.add(timer)
             db.session.commit()
