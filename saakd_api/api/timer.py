@@ -18,9 +18,12 @@ class TimerAPI(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument("task", required=True, type=str)
         parser.add_argument("expectedtime", required=False, type=int)
+        parser.add_argument("timeStop", required=False, type=int)
+
+        
         args = parser.parse_args()
 
-        timer = Timer(args["task"],  args["expectedtime"])
+        timer = Timer(args["task"], args["expectedtime"], args["timeStop"])
         try:
             db.session.add(timer)
             db.session.commit()
@@ -37,7 +40,7 @@ class TimerAPI(Resource):
         try:
             timer = db.session.query(Timer).get(args["id"])
             if timer:
-                timer.completed = True
+                timer.started = False
                 db.session.commit()
             else:
                 return {"message": "timer not found"}, 404

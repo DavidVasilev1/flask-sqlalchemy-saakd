@@ -9,18 +9,21 @@ class Timer(db.Model):
     _task = Column(String(255), nullable=False)
     _expectedtime = Column(Integer, nullable=False)
     _started = Column(Boolean, nullable=False)
+    _timeStop = Column(Integer, nullable=False)
 
     # initialization
-    def __init__(self, task, expectedtime):
+    def __init__(self, task, expectedtime, timeStop):
         self._task = task
         self._expectedtime = expectedtime
         self._started = False
+        self._timeStop = timeStop
 
     def __repr__(self):
-        return "<Timer(id='%s', expectedtime='%s', started='%s')>" % (
+        return "<Timer(id='%s', expectedtime='%s', started='%s', timeStop='%s')>" % (
             self.id,
             self.expectedtime,
-            self.started
+            self.started,
+            self.timeStop
         )
 
     @property
@@ -51,5 +54,13 @@ class Timer(db.Model):
     def expectedtime(self, value):
         self._expectedtime = value
 
+    @property
+    def timeStop(self):
+        return self._timeStop
+
+    @timeStop.setter
+    def timeStop(self, value):
+        self._timeStop = value
+
     def to_dict(self):
-        return {"id": self.id, "task": self.task, "expectedtime": self.expectedtime}
+        return {"id": self.id, "task": self.task, "expectedtime": self.expectedtime, "timeStop": self.timeStop}
