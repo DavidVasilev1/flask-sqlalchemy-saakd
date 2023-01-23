@@ -67,6 +67,9 @@ class NoteListAPI(Resource):
         notes = db.session.query(Notes).all()
         return [note.to_dict() for note in notes]
 
+    def delete_all(self):
+        db.session.query(Notes).delete()
+
 
 note_api.add_resource(NoteAPI, "/note")
 note_api.add_resource(NoteListAPI, "/noteList")
