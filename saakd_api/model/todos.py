@@ -63,10 +63,9 @@ def init_todos():
 
     todos = [Todo(task, completed=random_bool()) for task in menial_tasks]
     for todo in todos:
-        db.session.add(todo)
-
-    try:
-        db.session.commit()
-    except Exception as e:
-        print("error while creating todos: " + str(e))
-        db.session.rollback()
+        try:
+            db.session.add(todo)
+            db.session.commit()
+        except Exception as e:
+            print("error while creating todos: " + str(e))
+            db.session.rollback()
