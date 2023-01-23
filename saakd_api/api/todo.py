@@ -40,6 +40,7 @@ class TodoAPI(Resource):
             if todo:
                 todo.completed = args["completed"]
                 db.session.commit()
+                return todo.to_dict()
             else:
                 return {"message": "todo not found"}, 404
         except Exception as e:
