@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_restful import Api, Resource, reqparse
 from .. import db
 from ..model.timers import Timer
@@ -8,7 +8,8 @@ timer_api = Api(timer_bp)
 
 
 class TimerAPI(Resource):
-    def get(self, id):
+    def get(self):
+        id = request.args.get("id")
         timer = db.session.query(Timer).get(id)
         if timer:
             return timer.to_dict()
