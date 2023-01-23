@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_restful import Api, Resource, reqparse
 from .. import db
 from ..model.todos import Todo
@@ -8,7 +8,8 @@ todo_api = Api(todo_bp)
 
 
 class TodoAPI(Resource):
-    def get(self, id):
+    def get(self):
+        id = request.args.get("id")
         todo = db.session.query(Todo).get(id)
         if todo:
             return todo.to_dict()

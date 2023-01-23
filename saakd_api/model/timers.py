@@ -20,12 +20,9 @@ class Timer(db.Model):
         self._timeStop = timeStop
 
     def __repr__(self):
-        return "<Timer(id='%s', self='%s', expectedtime='%s', started='%s', timeStop='%s')>" % (
-            self.id,
-            self.task,
-            self.expectedtime,
-            self.started,
-            self.timeStop
+        return (
+            "<Timer(id='%s', self='%s', expectedtime='%s', started='%s', timeStop='%s')>"
+            % (self.id, self.task, self.expectedtime, self.started, self.timeStop)
         )
 
     @property
@@ -61,15 +58,21 @@ class Timer(db.Model):
         self._timeStop = value
 
     def to_dict(self):
-        return {"id": self.id, "task": self.task, "expectedtime": self.expectedtime, "started": self.started, "timeStop": self.timeStop}
+        return {
+            "id": self.id,
+            "task": self.task,
+            "expectedtime": self.expectedtime,
+            "started": self.started,
+            "timeStop": self.timeStop,
+        }
 
 
-def initTimers():
-    task1 = Timer(task='math', expectedtime=58, started=1, timeStop=367)
-    task2 = Timer(task='physics', expectedtime=347, started=1, timeStop=56)
-    task3 = Timer(task='history', expectedtime=23, started=1, timeStop=678)
-    task4 = Timer(task='csp', expectedtime=56, started=0, timeStop=23)
-    task5 = Timer(task='english', expectedtime=89, started=1, timeStop=45)
+def init_timers():
+    task1 = Timer(task="math", expectedtime=58, started=1, timeStop=367)
+    task2 = Timer(task="physics", expectedtime=347, started=1, timeStop=56)
+    task3 = Timer(task="history", expectedtime=23, started=1, timeStop=678)
+    task4 = Timer(task="csp", expectedtime=56, started=0, timeStop=23)
+    task5 = Timer(task="english", expectedtime=89, started=1, timeStop=45)
     db.session.add(task1)
     db.session.add(task2)
     db.session.add(task3)

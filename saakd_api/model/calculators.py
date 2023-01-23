@@ -43,16 +43,17 @@ class Calculator(db.Model):
     def to_dict(self):
         return {"id": self.id, "expression": self.expression, "output": self.output}
 
-def initCalculators():
-    c1 = Calculator(expression='1+2', output='3')
-    c2 = Calculator(expression='4*2', output='8')
-    c3 = Calculator(expression='6/3', output='2')
-    c4 = Calculator(expression='1+2-5', output='-2')
-    c5 = Calculator(expression='18/6+2', output='5')
+
+def init_calculators():
+    c1 = Calculator(expression="1+2", output="3")
+    c2 = Calculator(expression="4*2", output="8")
+    c3 = Calculator(expression="6/3", output="2")
+    c4 = Calculator(expression="1+2-5", output="-2")
+    c5 = Calculator(expression="18/6+2", output="5")
     db.session.add(c1)
     db.session.add(c2)
     db.session.add(c3)
     db.session.add(c4)
     db.session.add(c5)
-    
+
     db.session.commit()
