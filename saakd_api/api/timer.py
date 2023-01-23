@@ -18,7 +18,7 @@ class TimerAPI(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument("task", required=True, type=str)
         parser.add_argument("expectedtime", required=False, type=int)
-        parser.add_argument("started", required=False, type=int)
+        parser.add_argument("started", required=False, type=bool)
         parser.add_argument("timeStop", required=False, type=int)
         
         args = parser.parse_args()
