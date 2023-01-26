@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_restful import Api, Resource, reqparse
 from .. import db
 from ..model.schedules import Schedule
@@ -8,7 +8,8 @@ schedule_api = Api(schedule_bp)
 
 
 class ScheduleAPI(Resource):
-    def get(self, id):
+    def get(self):
+        id = request.args.get("id")
         schedule = db.session.query(Schedule).get(id)
         if schedule:
             return schedule.to_dict()

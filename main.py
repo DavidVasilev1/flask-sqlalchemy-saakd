@@ -4,16 +4,19 @@ from saakd_api.api.todo import todo_bp
 from saakd_api.api.calculator import calculator_bp
 from saakd_api.api.timer import timer_bp
 from saakd_api.api.note import note_bp
+from saakd_api.api.schedule import schedule_bp
 
 from saakd_api.model.calculators import init_calculators
 from saakd_api.model.notes import init_notes
 from saakd_api.model.timers import init_timers
 from saakd_api.model.todos import init_todos
+from saakd_api.model.schedules import init_schedules
 
 app.register_blueprint(todo_bp)
 app.register_blueprint(timer_bp)
 app.register_blueprint(note_bp)
 app.register_blueprint(calculator_bp)
+app.register_blueprint(schedule_bp)
 
 
 @app.before_first_request
@@ -24,6 +27,7 @@ def init_db():
         init_todos()
         init_calculators()
         init_timers()
+        init_schedules()
 
 
 if __name__ == "__main__":

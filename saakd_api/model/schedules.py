@@ -1,10 +1,10 @@
-from sqlalchemy import Column, Integer, String, Boolean
+from sqlalchemy import Column, Integer, String
 from .. import db
 
 
 class Schedule(db.Model):
     # defining table
-    __tablename__ = "timer"
+    __tablename__ = "schedule"
     id = Column(Integer, primary_key=True)
     _period = Column(Integer, nullable=False)
     _class1 = Column(String(255), nullable=False)
