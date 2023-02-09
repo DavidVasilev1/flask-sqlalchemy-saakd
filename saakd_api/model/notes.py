@@ -17,7 +17,7 @@ class Notes(db.Model):
         return "<Notes(id='%s', text='%s', subject='%s')>" % (
             self.id,
             self.text,
-            self.subject,
+            self.subject
         )
 
     @property

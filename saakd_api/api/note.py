@@ -20,7 +20,7 @@ class NoteAPI(Resource):
         parser.add_argument("text", required=True, type=str)
         args = parser.parse_args()
 
-        note = Notes(args["text"])
+        note = Notes(args["text"], args["subject"])
         try:
             db.session.add(note)
             db.session.commit()
