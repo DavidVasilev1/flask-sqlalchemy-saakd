@@ -7,7 +7,7 @@ class Timer(db.Model):
     __tablename__ = "timer"
 
     id = Column(Integer, primary_key=True)
-    _storedtime = Column(Integer, primary_key=True)
+    _storedtime = Column(Integer, primary_key=False)
     _tasks = Column(String(255), nullable=False)
     _TimeExpected = Column(String(255), nullable=False)
     # _time = Column(Integer, nullable=False)
@@ -55,11 +55,11 @@ class Timer(db.Model):
 
 
 def init_timers():
-    task1 = Timer(tasks='math', TimeExpected=58, storedtime=210)
-    task2 = Timer(tasks='physics', TimeExpected=347, storedtime=143)
-    task3 = Timer(tasks='history', TimeExpected=23, storedtime=76)
-    task4 = Timer(tasks='csp', TimeExpected=56, storedtime=65)
-    task5 = Timer(tasks='english', TimeExpected=89, storedtime=100)
+    task1 = Timer(210, "physics", "260")
+    task2 = Timer(220, "math", "240")
+    task3 = Timer(230, "cs", "230")
+    task4 = Timer(240, "apel", "220")
+    task5 = Timer(250, "engineering", "210")
     db.session.add(task1)
     db.session.add(task2)
     db.session.add(task3)
