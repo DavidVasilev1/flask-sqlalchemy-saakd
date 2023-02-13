@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from flask_restful import Api, Resource, reqparse
 from .. import db
 from ..model.todos import Todo
@@ -8,7 +8,8 @@ todo_api = Api(todo_bp)
 
 
 class TodoAPI(Resource):
-    def get(self, id):
+    def get(self):
+        id = request.args.get("id")
         todo = db.session.query(Todo).get(id)
         if todo:
             return todo.to_dict()
@@ -31,13 +32,15 @@ class TodoAPI(Resource):
     def put(self):
         parser = reqparse.RequestParser()
         parser.add_argument("id", required=True, type=int)
+        parser.add_argument("completed", required=True, type=int)
         args = parser.parse_args()
 
         try:
             todo = db.session.query(Todo).get(args["id"])
             if todo:
-                todo.completed = True
+                todo.completed = args["completed"]
                 db.session.commit()
+                return todo.to_dict()
             else:
                 return {"message": "todo not found"}, 404
         except Exception as e:
