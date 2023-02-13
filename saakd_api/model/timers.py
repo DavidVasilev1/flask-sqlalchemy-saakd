@@ -54,7 +54,7 @@ class Timer(db.Model):
         return {"id": self.id, "tasks": self.tasks, "TimeExpected": self.TimeExpected, "storedtime": self.storedtime}
 
 
-def initTimers():
+def init_timers():
     task1 = Timer(tasks='math', TimeExpected=58, storedtime=210)
     task2 = Timer(tasks='physics', TimeExpected=347, storedtime=143)
     task3 = Timer(tasks='history', TimeExpected=23, storedtime=76)
