@@ -16,13 +16,13 @@ class TimerAPI(Resource):
 
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument("task", required=True, type=str)
-        parser.add_argument("expectedtime", required=False, type=int)
-        parser.add_argument("started", required=False, type=bool)
-        parser.add_argument("timeStop", required=False, type=int)
+        parser.add_argument("tasks", required=True, type=str)
+        parser.add_argument("TimeExpected", required=False, type=str)
+        parser.add_argument("storedtime", required=False, type=int)
+        # parser.add_argument("timeStop", required=False, type=int)
         args = parser.parse_args()
 
-        timer = Timer(args["task"], args["expectedtime"], args["started"], args["timeStop"])
+        timer = Timer(args["tasks"], args["TimeExpected"], args["storedtime"])
         try:
             db.session.add(timer)
             db.session.commit()
