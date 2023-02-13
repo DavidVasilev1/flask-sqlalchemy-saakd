@@ -35,6 +35,7 @@ class TimerAPI(Resource):
     def put(self):
         parser = reqparse.RequestParser()
         parser.add_argument("id", required=True, type=int)
+
         args = parser.parse_args()
 
         try:
