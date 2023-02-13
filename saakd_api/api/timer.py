@@ -20,7 +20,7 @@ class TimerAPI(Resource):
         parser.add_argument("tasks", required=True, type=str)
         parser.add_argument("TimeExpected", required=False, type=str)
         parser.add_argument("storedtime", required=False, type=int)
-        # parser.add_argument("timeStop", required=False, type=int)
+
         args = parser.parse_args()
 
         timer = Timer(args["tasks"], args["TimeExpected"], args["storedtime"])
@@ -35,7 +35,6 @@ class TimerAPI(Resource):
     def put(self):
         parser = reqparse.RequestParser()
         parser.add_argument("id", required=True, type=int)
-
         args = parser.parse_args()
 
         try:
