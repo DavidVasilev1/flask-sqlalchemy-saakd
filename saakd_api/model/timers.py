@@ -44,7 +44,7 @@ class Timer(db.Model):
 
     @property
     def storedtime(self):
-        return self.storedtime
+        return self._storedtime
 
     @storedtime.setter
     def storedtime(self, value):
