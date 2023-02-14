@@ -23,7 +23,7 @@ class TimerAPI(Resource):
 
         args = parser.parse_args()
 
-        timer = Timer(args["tasks"], args["TimeExpected"], args["storedtime"])
+        timer = Timer(args["storedtime"], args["tasks"], args["TimeExpected"])
         try:
             db.session.add(timer)
             db.session.commit()
