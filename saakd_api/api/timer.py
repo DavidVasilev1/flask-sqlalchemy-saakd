@@ -13,13 +13,13 @@ class TimerAPI(Resource):
         timer = db.session.query(Timer).get(id)
         if timer:
             return timer.to_dict()
-        return {"message": "todo not found"}, 404
+        return {"message": " not found"}, 404
 
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument("tasks", required=True, type=str)
-        parser.add_argument("TimeExpected", required=False, type=str)
         parser.add_argument("storedtime", required=False, type=int)
+        parser.add_argument("tasks", required=False, type=str)
+        parser.add_argument("TimeExpected", required=False, type=str)
 
         args = parser.parse_args()
 
@@ -45,7 +45,7 @@ class TimerAPI(Resource):
                 db.session.commit()
                 return timer.to_dict()
             else:
-                return {"message": "todo not found"}, 404
+                return {"message": "hi not found"}, 404
         except Exception as e:
             db.session.rollback()
             return {"message": f"server error: {e}"}, 500
