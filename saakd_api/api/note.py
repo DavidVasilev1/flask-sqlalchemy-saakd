@@ -18,6 +18,7 @@ class NoteAPI(Resource):
     def post(self):
         parser = reqparse.RequestParser()
         parser.add_argument("text", required=True, type=str)
+        parser.add_argument("subject", required=True, type=str)
         args = parser.parse_args()
 
         note = Notes(args["text"], args["subject"])
