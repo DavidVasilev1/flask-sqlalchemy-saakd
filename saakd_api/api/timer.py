@@ -73,6 +73,15 @@ class TimerListAPI(Resource):
         timers = db.session.query(Timer).all()
         return [timer.to_dict() for timer in timers]
 
+    def delete(self):
+        try:
+            db.session.query(Timer).delete()
+            db.session.commit()
+            return []
+        except Exception as e:
+            db.session.rollback()
+            return {"message": f"server error: {e}"}, 500
+
 
 timer_api.add_resource(TimerAPI, "/timer")
 timer_api.add_resource(TimerListAPI, "/timerList")
