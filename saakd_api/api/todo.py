@@ -32,13 +32,12 @@ class TodoAPI(Resource):
     def put(self):
         parser = reqparse.RequestParser()
         parser.add_argument("id", required=True, type=int)
-        parser.add_argument("completed", required=True, type=int)
         args = parser.parse_args()
 
         try:
             todo = db.session.query(Todo).get(args["id"])
             if todo:
-                todo.completed = args["completed"]
+                todo.completed = not todo.completed
                 db.session.commit()
                 return todo.to_dict()
             else:
@@ -67,8 +66,21 @@ class TodoAPI(Resource):
 
 class TodoListAPI(Resource):
     def get(self):
-        todos = db.session.query(Todo).all()
-        return [todo.to_dict() for todo in todos]
+        try:
+            todos = db.session.query(Todo).all()
+            return [todo.to_dict() for todo in todos]
+        except Exception as e:
+            db.session.rollback()
+            return {"message": f"server error: {e}"}, 500
+
+    def delete(self):
+        try:
+            db.session.query(Todo).delete()
+            db.session.commit()
+            return []
+        except Exception as e:
+            db.session.rollback()
+            return {"message": f"server error: {e}"}, 500
 
 
 todo_api.add_resource(TodoAPI, "/todo")
