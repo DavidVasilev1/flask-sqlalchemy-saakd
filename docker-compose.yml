@@ -6,5 +6,5 @@ services:
     ports:
       - "8199:8199"
     volumes:
-      - ./volumes:/volumes
+      - ./saakd_api/volumes:/volumes
     restart: unless-stopped
