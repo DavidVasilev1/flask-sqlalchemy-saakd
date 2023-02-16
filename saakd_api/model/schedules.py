@@ -8,21 +8,24 @@ class Schedule(db.Model):
     id = Column(Integer, primary_key=True)
     _period = Column(Integer, nullable=False)
     _class1 = Column(String(255), nullable=False)
-    _startTime = Column(Integer, nullable=False)
-    _endTime = Column(Integer, nullable=False)
+    _classNum = Column(String(255), nullable=False)
+    _startTime = Column(String, nullable=False)
+    _endTime = Column(String, nullable=False)
 
     # initialization
-    def __init__(self, period, class1, startTime, endTime):
+    def __init__(self, period, class1, classNum, startTime, endTime):
         self._period = period
         self._class1 = class1
+        self._classNum = classNum
         self._startTime = startTime
         self._endTime = endTime
 
     def __repr__(self):
-        return "<Timer(id='%s', period='%s', class1='%s', startTime='%s', endTime='%s')>" % (
+        return "<Timer(id='%s', period='%s', class1='%s', classNum='%s', startTime='%s', endTime='%s')>" % (
             self.id,
             self.period,
             self.class1,
+            self.classNum,
             self.startTime,
             self.endTime
         )
@@ -52,6 +55,14 @@ class Schedule(db.Model):
         self._class1 = value
 
     @property
+    def classNum(self):
+        return self._classNum
+
+    @classNum.setter
+    def classNum(self, value):
+        self._classNum = value
+
+    @property
     def endTime(self):
         return self._endTime
 
@@ -60,14 +71,14 @@ class Schedule(db.Model):
         self._endTime = value
 
     def to_dict(self):
-        return {"id": self.id, "period": self.period, "class1": self.class1, "startTime": self.startTime, "endTime": self.endTime}
+        return {"id": self.id, "period": self.period, "class1": self.class1, "classNum": self.classNum, "startTime": self.startTime, "endTime": self.endTime}
 
 def init_schedules():
-    task1 = Schedule(period=1, class1="math", startTime=10, endTime=11)
-    task2 = Schedule(period=2, class1="physics", startTime=11, endTime=12)
-    task3 = Schedule(period=3, class1="history", startTime=12, endTime=1)
-    task4 = Schedule(period=4, class1="csp", startTime=2, endTime=3)
-    task5 = Schedule(period=5, class1="english", startTime=3, endTime=4)
+    task1 = Schedule(period=1, class1="math", classNum="R503", startTime="10:00", endTime="11:00")
+    task2 = Schedule(period=2, class1="physics", classNum="K105", startTime="11:00", endTime="12:00")
+    task3 = Schedule(period=3, class1="history", classNum="L117", startTime="12:00", endTime="13:00")
+    task4 = Schedule(period=4, class1="csp", classNum="A101", startTime="13:00", endTime="14:00")
+    task5 = Schedule(period=5, class1="english", classNum="G115", startTime="14:00", endTime="15:00")
     db.session.add(task1)
     db.session.add(task2)
     db.session.add(task3)
