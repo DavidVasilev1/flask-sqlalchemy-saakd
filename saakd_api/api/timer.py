@@ -35,15 +35,15 @@ class TimerAPI(Resource):
     def put(self):
         parser = reqparse.RequestParser()
         parser.add_argument("id", required=True, type=int)
-        parser.add_argument("completed", required=True, type=int)
+        parser.add_argument("storedtime", required=True, type=int)
         args = parser.parse_args()
 
         try:
             timer = db.session.query(Timer).get(args["id"])
             if timer:
-                timer.completed = args["completed"]
+                timer.storedtime = args["storedtime"]
                 db.session.commit()
-                return timer.to_dict()
+                # return timer.to_dict()
             else:
                 return {"message": "hi not found"}, 404
         except Exception as e:

@@ -48,7 +48,7 @@ class Timer(db.Model):
 
     @storedtime.setter
     def storedtime(self, value):
-        self.storedtime = value
+        self._storedtime = value
 
     def to_dict(self):
         return {"id": self.id, "tasks": self.tasks, "TimeExpected": self.TimeExpected, "storedtime": self.storedtime}
