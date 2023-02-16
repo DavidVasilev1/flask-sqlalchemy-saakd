@@ -9,8 +9,8 @@ class Schedule(db.Model):
     _period = Column(Integer, nullable=False)
     _class1 = Column(String(255), nullable=False)
     _classNum = Column(String(255), nullable=False)
-    _startTime = Column(Integer, nullable=False)
-    _endTime = Column(Integer, nullable=False)
+    _startTime = Column(String, nullable=False)
+    _endTime = Column(String, nullable=False)
 
     # initialization
     def __init__(self, period, class1, classNum, startTime, endTime):
@@ -74,11 +74,11 @@ class Schedule(db.Model):
         return {"id": self.id, "period": self.period, "class1": self.class1, "classNum": self.classNum, "startTime": self.startTime, "endTime": self.endTime}
 
 def init_schedules():
-    task1 = Schedule(period=1, class1="math", classNum="R503", startTime=10, endTime=11)
-    task2 = Schedule(period=2, class1="physics", classNum="K105", startTime=11, endTime=12)
-    task3 = Schedule(period=3, class1="history", classNum="L117", startTime=12, endTime=1)
-    task4 = Schedule(period=4, class1="csp", classNum="A101", startTime=2, endTime=3)
-    task5 = Schedule(period=5, class1="english", classNum="G115", startTime=3, endTime=4)
+    task1 = Schedule(period=1, class1="math", classNum="R503", startTime="10:00", endTime="11:00")
+    task2 = Schedule(period=2, class1="physics", classNum="K105", startTime="11:00", endTime="12:00")
+    task3 = Schedule(period=3, class1="history", classNum="L117", startTime="12:00", endTime="13:00")
+    task4 = Schedule(period=4, class1="csp", classNum="A101", startTime="13:00", endTime="14:00")
+    task5 = Schedule(period=5, class1="english", classNum="G115", startTime="14:00", endTime="15:00")
     db.session.add(task1)
     db.session.add(task2)
     db.session.add(task3)
