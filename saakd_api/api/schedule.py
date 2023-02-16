@@ -73,14 +73,14 @@ class ScheduleListAPI(Resource):
         schedules = db.session.query(Schedule).all()
         return [schedule.to_dict() for schedule in schedules]
 
-    # def delete(self):
-    #     try:
-    #         db.session.query(Schedule).delete()
-    #         db.session.commit()
-    #         return []
-    #     except Exception as e:
-    #         db.session.rollback()
-    #         return {"message": f"server error: {e}"}, 500
+    def delete(self):
+        try:
+            db.session.query(Schedule).delete()
+            db.session.commit()
+            return []
+        except Exception as e:
+            db.session.rollback()
+            return {"message": f"server error: {e}"}, 500
 
 
 schedule_api.add_resource(ScheduleAPI, "/schedule")
