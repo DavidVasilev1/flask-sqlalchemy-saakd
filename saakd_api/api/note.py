@@ -9,8 +9,8 @@ note_api = Api(note_bp)
 
 class NoteAPI(Resource):
     def get(self):
-        id = request.agrs.get("id")
-        note = db.session.query(note).get(id)
+        id = request.args.get("id")
+        note = db.session.query(Notes).get(id)
         if note:
             return note.to_dict()
         return {"message": "note not found"}, 404
@@ -49,10 +49,12 @@ class NoteAPI(Resource):
     def delete(self):
         parser = reqparse.RequestParser()
         parser.add_argument("id", required=True, type=int)
+        parser.add_argument("text", required=True, type=str)
+        parser.add_argument("subject", required=True, type=str)
         args = parser.parse_args()
 
         try:
-            note = db.session.query(Notes).get(args["id"])
+            note = db.session.query(Notes).get(args["id"], args["text"], args["subject"])
             if note:
                 db.session.delete(note)
                 db.session.commit()
