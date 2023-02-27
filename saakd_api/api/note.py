@@ -33,12 +33,13 @@ class NoteAPI(Resource):
     def put(self):
         parser = reqparse.RequestParser()
         parser.add_argument("id", required=True, type=int)
+        parser.add_argument("text", required=True, type=str)
         args = parser.parse_args()
 
         try:
             note = db.session.query(Notes).get(args["id"])
             if note:
-                note.completed = True
+                note.text = args["text"]
                 db.session.commit()
             else:
                 return {"message": "note not found"}, 404
