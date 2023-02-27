@@ -21,7 +21,7 @@ class CalculatorAPI(Resource):
         parser.add_argument("output", required=True, type=str)
         args = parser.parse_args()
 
-        calculator = Calculator(args["expression"],args["output"])
+        calculator = Calculator(args["expression"], args["output"])
         try:
             db.session.add(calculator)
             db.session.commit()
@@ -71,6 +71,15 @@ class CalculatorListAPI(Resource):
     def get(self):
         calculators = db.session.query(Calculator).all()
         return [calculator.to_dict() for calculator in calculators]
+
+    def delete(self):
+        try:
+            db.session.query(Calculator).delete()
+            db.session.commit()
+            return []
+        except Exception as e:
+            db.session.rollback()
+            return {"message": f"server error: {e}"}, 500
 
 
 calculator_api.add_resource(CalculatorAPI, "/calculator")

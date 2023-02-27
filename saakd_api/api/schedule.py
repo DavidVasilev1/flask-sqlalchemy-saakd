@@ -19,12 +19,13 @@ class ScheduleAPI(Resource):
         parser = reqparse.RequestParser()
         parser.add_argument("period", required=True, type=int)
         parser.add_argument("class1", required=False, type=str)
-        parser.add_argument("startTime", required=False, type=int)
-        parser.add_argument("endTime", required=False, type=int)
+        parser.add_argument("classNumber", required=False, type=str)
+        parser.add_argument("startTime", required=False, type=str)
+        parser.add_argument("endTime", required=False, type=str)
         
         args = parser.parse_args()
 
-        schedule = Schedule(args["period"], args["class1"], args["startTime"], args["endTime"])
+        schedule = Schedule(args["period"], args["class1"], args["classNumber"], args["startTime"], args["endTime"])
         try:
             db.session.add(schedule)
             db.session.commit()
@@ -71,6 +72,15 @@ class ScheduleListAPI(Resource):
     def get(self):
         schedules = db.session.query(Schedule).all()
         return [schedule.to_dict() for schedule in schedules]
+
+    def delete(self):
+        try:
+            db.session.query(Schedule).delete()
+            db.session.commit()
+            return []
+        except Exception as e:
+            db.session.rollback()
+            return {"message": f"server error: {e}"}, 500
 
 
 schedule_api.add_resource(ScheduleAPI, "/schedule")

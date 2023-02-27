@@ -13,13 +13,13 @@ class TimerAPI(Resource):
         timer = db.session.query(Timer).get(id)
         if timer:
             return timer.to_dict()
-        return {"message": "todo not found"}, 404
+        return {"message": " not found"}, 404
 
     def post(self):
         parser = reqparse.RequestParser()
-        parser.add_argument("tasks", required=True, type=str)
-        parser.add_argument("TimeExpected", required=False, type=str)
         parser.add_argument("storedtime", required=False, type=int)
+        parser.add_argument("tasks", required=False, type=str)
+        parser.add_argument("TimeExpected", required=False, type=str)
 
         args = parser.parse_args()
 
@@ -35,17 +35,17 @@ class TimerAPI(Resource):
     def put(self):
         parser = reqparse.RequestParser()
         parser.add_argument("id", required=True, type=int)
-        parser.add_argument("completed", required=True, type=int)
+        parser.add_argument("storedtime", required=True, type=int)
         args = parser.parse_args()
 
         try:
             timer = db.session.query(Timer).get(args["id"])
             if timer:
-                timer.completed = args["completed"]
+                timer.storedtime = args["storedtime"]
                 db.session.commit()
-                return timer.to_dict()
+                # return timer.to_dict()
             else:
-                return {"message": "todo not found"}, 404
+                return {"message": "hi not found"}, 404
         except Exception as e:
             db.session.rollback()
             return {"message": f"server error: {e}"}, 500
@@ -72,6 +72,15 @@ class TimerListAPI(Resource):
     def get(self):
         timers = db.session.query(Timer).all()
         return [timer.to_dict() for timer in timers]
+
+    def delete(self):
+        try:
+            db.session.query(Timer).delete()
+            db.session.commit()
+            return []
+        except Exception as e:
+            db.session.rollback()
+            return {"message": f"server error: {e}"}, 500
 
 
 timer_api.add_resource(TimerAPI, "/timer")
