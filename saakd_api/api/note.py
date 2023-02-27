@@ -9,7 +9,7 @@ note_api = Api(note_bp)
 
 class NoteAPI(Resource):
     def get(self):
-        id = request.agrs.get("id")
+        id = request.args.get("id")
         note = db.session.query(note).get(id)
         if note:
             return note.to_dict()
@@ -68,10 +68,6 @@ class NoteListAPI(Resource):
     def get(self):
         notes = db.session.query(Notes).all()
         return [note.to_dict() for note in notes]
-
-    def delete_all(self):
-        db.session.query(Notes).delete()
-
 
 note_api.add_resource(NoteAPI, "/note")
 note_api.add_resource(NoteListAPI, "/noteList")
